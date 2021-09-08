@@ -10,6 +10,3 @@ AHS: An Agile Framework for Hardware Specialization and Software Mapping
    :caption: Contents:
 
    Overview.rst
-   Schedule.rst
-   Organizers.rst
-   Related Papers.rst
