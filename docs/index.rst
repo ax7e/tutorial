@@ -1,7 +1,7 @@
 
 AHS: An Agile Framework for Hardware Specialization and Software Mapping
 ========================================================================
-.. figure:: images/system.jpg
+.. figure:: images/system.png
     :align: center
     :figwidth: 1000px
 
