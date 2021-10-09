@@ -59,3 +59,11 @@ Related papers
 -  Qingcheng Xiao, et al. “HASCO: Towards Agile Hardware and Software Co-design for Tensor Computation,” ISCA, 2021.
 -  Liqiang Lu, et al. “TENET: A Framework for Modeling Tensor Dataflow based on Relation-centric Notation,” ISCA, 2021.
 -  Liancheng Jia, et al. “TensorLib: A Spatial Accelerator Generation Framework for Tensor Algebra,” DAC, 2021.
+
+============================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   steps.rst
