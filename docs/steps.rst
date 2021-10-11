@@ -68,6 +68,7 @@ Git
 
 Install
 ^^^^^^^
+Here is a shell file :download:`code <shells/install_ahs.sh>`.
 
 Hasco
 ~~~~~
