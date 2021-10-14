@@ -18,30 +18,37 @@ Schedule
 The tutorial starts with an overview of the AHS Project followed by a series of technical presentation and open source tools demo. The tutorial covers all the components of AHS including hardware and software co-design, hardware specialization, and software mapping. 
 
 .. list-table:: Schedule
-   :widths: 25 25 50
+   :widths: 70 70 70 50
    :header-rows: 1
 
    * - Time
      - Agenda
      - Presenter
-   * - 10mins
+     - Resources
+   * - 10:00 AM EDT - 10:10 AM EDT(10:00 PM CST - 10:10 PM CST) 
      - Overview
      - Yun Eric Liang
-   * - 40mins
+     - [Slides]
+   * - 10:10 AM EDT - 10:50 AM EDT(10:10 PM CST - 10:50 PM CST)
      - HASCO: co-design framework
      - Zizhang Luo
-   * - 40mins
+     - [:download:`Slides <slides/hasco.pdf>`]
+   * - 10:50 AM EDT - 11:30 AM EDT(10:50 PM CST - 11:30 PM CST)
      - TENET: hardware dataflow modeling
      - Liqiang Lu
-   * - 10mins
+     - [:download:`Slides <slides/tenet.pdf>`]
+   * - 11:30 AM EDT - 11:40 AM EDT(11:30 PM CST - 11:40 PM CST)
      - Break
      - \
-   * - 40mins
+     - \
+   * - 11:40 AM EDT - 0:20 PM EDT(11:40 PM CST - 0:20 AM CST)
      - Tensorlib: automatic hardware synthesis
      - Liangcheng Jia
-   * - 40mins
+     - [Slides]
+   * - 00:20 PM EDT - 1:00 PM EDT(00:20 AM CST - 1:00 AM CST)
      - FlexTensor: automatic software mapping
      - Size Zheng
+     - [:download:`Slides <slides/flextensor.pdf>`]
 
 Organizers
 ----------
@@ -55,12 +62,17 @@ Organizers
 Related papers
 --------------
 
--  Size Zheng, et al. “FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System,” ASPLOS, 2020.
--  Qingcheng Xiao, et al. “HASCO: Towards Agile Hardware and Software Co-design for Tensor Computation,” ISCA, 2021.
--  Liqiang Lu, et al. “TENET: A Framework for Modeling Tensor Dataflow based on Relation-centric Notation,” ISCA, 2021.
--  Liancheng Jia, et al. “TensorLib: A Spatial Accelerator Generation Framework for Tensor Algebra,” DAC, 2021.
+-  Size Zheng, et al. “FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System” - `ASPLOS 2020 <https://dl.acm.org/doi/abs/10.1145/3373376.3378508>`_ .
+-  Qingcheng Xiao, et al. “HASCO: Towards Agile Hardware and Software Co-design for Tensor Computation” - `ISCA 2021 <https://ieeexplore.ieee.org/document/9499796>`_ .
+-  Liqiang Lu, et al. “TENET: A Framework for Modeling Tensor Dataflow based on Relation-centric Notation” - `ISCA 2021 <https://ieeexplore.ieee.org/document/9499903>`_ .
+-  Liancheng Jia, et al. “TensorLib: A Spatial Accelerator Generation Framework for Tensor Algebra” - `DAC 2021 <https://arxiv.org/abs/2104.12339>`_.
 
-============================
+Git Repos
+---------
+- `HASCO <https://github.com/pku-liang/HASCO.git>`_
+- `TENET <https://github.com/pku-liang/TENET.git>`_ 
+- `TensorLib <https://github.com/pku-liang/TensorLib.git>`_
+- `FlexTensor <https://github.com/KnowingNothing/FlexTensor-Micro.git>`_
 
 .. toctree::
    :maxdepth: 2

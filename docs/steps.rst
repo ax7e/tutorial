@@ -7,7 +7,7 @@ Install
 Shell script
 ~~~~~~~~~~~~
 
-You can use this shell script to install everything.
+You can use this shell :download:`shell <shells/install_ahs.sh>` script to install everything.
 
 .. code:: bash
 
@@ -81,11 +81,6 @@ Sbt
    curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
    sudo apt-get update
    sudo apt-get install sbt
-
-Shell
-^^^^^
-
-Here is a shell file :download:`code <shells/install_ahs.sh>`.
 
 Git
 ^^^
