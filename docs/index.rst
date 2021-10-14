@@ -25,27 +25,27 @@ The tutorial starts with an overview of the AHS Project followed by a series of 
      - Agenda
      - Presenter
      - Resources
-   * - 10:00 AM EDT - 10:10 AM EDT(10:00 PM CST - 10:10 PM CST) 
+   * - 5:00 PM EEST - 5:10 PM EEST(10:00 PM CST - 10:10 PM CST) 
      - Overview
      - Yun Eric Liang
      - [Slides]
-   * - 10:10 AM EDT - 10:50 AM EDT(10:10 PM CST - 10:50 PM CST)
+   * - 5:10 PM EEST - 5:50 PM EEST(10:10 PM CST - 10:50 PM CST)
      - HASCO: co-design framework
      - Zizhang Luo
      - [:download:`Slides <slides/hasco.pdf>`]
-   * - 10:50 AM EDT - 11:30 AM EDT(10:50 PM CST - 11:30 PM CST)
+   * - 5:50 PM EEST - 6:30 PM EEST(10:50 PM CST - 11:30 PM CST)
      - TENET: hardware dataflow modeling
      - Liqiang Lu
      - [:download:`Slides <slides/tenet.pdf>`]
-   * - 11:30 AM EDT - 11:40 AM EDT(11:30 PM CST - 11:40 PM CST)
+   * - 6:30 PM EEST - 6:40 PM EEST(11:30 PM CST - 11:40 PM CST)
      - Break
      - \
      - \
-   * - 11:40 AM EDT - 0:20 PM EDT(11:40 PM CST - 0:20 AM CST)
+   * - 6:40 PM EEST - 7:20 PM EEST(11:40 PM CST - 0:20 AM CST)
      - Tensorlib: automatic hardware synthesis
      - Liangcheng Jia
      - [Slides]
-   * - 00:20 PM EDT - 1:00 PM EDT(00:20 AM CST - 1:00 AM CST)
+   * - 7:20 PM EEST - 8:00 PM EEST(00:20 AM CST - 1:00 AM CST)
      - FlexTensor: automatic software mapping
      - Size Zheng
      - [:download:`Slides <slides/flextensor.pdf>`]
