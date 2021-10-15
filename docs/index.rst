@@ -21,7 +21,7 @@ The tutorial starts with an overview of the AHS Project followed by a series of 
    :widths: 70 70 70 50
    :header-rows: 1
 
-   * - Time
+   * - Time (2021 Oct 18)
      - Agenda
      - Presenter
      - Resources
@@ -44,7 +44,7 @@ The tutorial starts with an overview of the AHS Project followed by a series of 
    * - 6:40 PM EEST - 7:20 PM EEST(11:40 PM CST - 0:20 AM CST)
      - Tensorlib: automatic hardware synthesis
      - Liangcheng Jia
-     - [Slides]
+     - [:download:`Slides <slides/tensorlib.pdf>`]
    * - 7:20 PM EEST - 8:00 PM EEST(00:20 AM CST - 1:00 AM CST)
      - FlexTensor: automatic software mapping
      - Size Zheng
