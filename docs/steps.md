@@ -15,7 +15,7 @@ The shell script is tested under Ubuntu:20.04LTS. If you use another OS, or if y
 
 ### Docker
 
-You can pull our docker. We had everything prepared, configured and installed for you. 
+You  can pull our docker. We had everything prepared, configured and installed for you. 
 
 ```sh
 docker pull ericlyun/ahsmicro:latest
