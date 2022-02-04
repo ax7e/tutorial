@@ -1,306 +1,115 @@
-# Steps
+# Lab-3 CUDA Programming
 
-## Install
+This page contains information about how to access and submit the labs.
+- [Install and Setup](#install-and-setup)
+    - [Windows](#windows)
+- [Labs](#labs)
+- [Code Development Tools](#code-development-tools)
+  - [Timing the Code Sections](#timing-the-code-sections)
+  - [Utility Functions](#utility-functions)
+  - [Verifying the Results](#verifying-the-results)
+  - [Checking Errors](#checking-errors)
+  - [Profiling](#profiling)
+  - [Downloading Your Output Code](#downloading-your-output-code)
+  - [Enabling Debug builds](#enabling-debug-builds)
+  - [Offline Development](#offline-development)
+  - [Issues](#issues)
+  - [License](#license)
 
-### Shell script
+# Install and Setup
 
-You can use this shell script to install everything.
+Clone this repository to get the project folder.
 
-```bash
-sh –c “$(wget https://pku-ahs.github.io/tutorial/en/master/_downloads/9064601015f9cd5e747a641dbdacf3aa/install_ahs.sh –O -)”
-source ~/.bashrc
+The code is modified for use in our cluster. 
+
+    git clone https://github.com/illinois-impact/gpu-algorithms-labs.git
+
+# Labs
+
+Several labs will be assigned over the course of the semester
+
+* [Device Query](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/device_query)
+* [Scatter](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/scatter)/[Gather](https://github.com/illinois-impact/gpu-algorithms-labs/tree/su2021_pumps/labs/gather) ( <- **two-part lab!!!**)
+* [Joint-tiled SGEMM](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/sgemm-regtiled-coarsened)
+* [Binning](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/binning)
+* [BFS](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/bfs)
+* [Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/basic_conv)
+* [Tiled Convolution](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/tiled_conv)
+* [Triangle Counting](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/triangle_counting)
+* [SpMV](https://github.com/illinois-impact/gpu-algorithms-labs/tree/master/labs/spmv)
+
+The device query lab (the first one) simply tests your RAI use; no changes should be necessary--if it doesn't work, you need to debug your setup.
+
+For most labs, the main code of is in `main.cu`, which is the file you will be editing. Helper code that's specific to the lab is in the `helper.hpp` file and the common code across the labs in the `common` folder. You are free to add/delete/rename files but you need to make the appropriate changes to the `CMakeLists.txt` file.
+
+To run any lab you `cd` into that directory, `cd labs/device_query` for example, and run `rai -p .` .
+From a user's point a view when the client runs as if it was local.
+
+# Code Development **Tools**
+
+Throughout the semester, you'll be developing the labs. The following information is common through all the labs and might be helpful while developing.
+
+We will also take a closer look at using the recent NVIDIA profiling tools,
+and I will integrate that material into the labs as the semester progresses.
+
+## Timing the Code Sections
+
+It might be useful to figure out the time of each code section to identify the bottleneck code.
+In `common/utils.hpp` a function called `timer_start/timer_stop` which allows you to get the current time at a high resolution.
+To measure the overhead of a function `f(args...)`, the pattern to use is:
+
+```{.cpp}
+timer_start(/* msg */ "calling the f(args...) function");
+f(args...);
+timer_stop();
 ```
 
-The shell script is tested under Ubuntu:20.04LTS. If you use another OS, or if you use Anaconda or Virtualenv for python, you may need to modify the script yourself. For windows users, it is best to use WSL.
-
-### Docker
-
-You  can pull our docker. We had everything prepared, configured and installed for you. 
-
-```sh
-docker pull ericlyun/ahsmicro:latest
-docker run –it ahsmicro:latest /bin/bash 
-```
-
-### Requirement
-
-#### Apt
-
-+ python3
-+ python3-pip
-+ git
-+ llvm-9
-+ cmake
-+ build-essential
-+ make
-+ autoconf
-+ automake
-+ scons
-+ libboost-all-dev
-+ libgmp10-dev
-+ libtool
-+ default-jdk
-+ csvtool
-
-#### Pip
-
-+ numpy
-+ decorator
-+ attrs
-+ tornado
-+ psutil
-+ xgboost
-+ cloudpickle
-+ tensorflow
-+ tqdm
-+ IPython
-+ botorch
-+ jinja2
-+ pandas
-+ scipy
-+ scikit-learn
-+ plotly
-
-#### Sbt
-
-```bash
-echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
-echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
-curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
-sudo apt-get update
-sudo apt-get install sbt
-```
-
- #### Git
-
-```bash
-git clone --recursive -b micro_tutorial https://github.com/pku-liang/HASCO.git
-git clone --recursive -b micro_tutorial https://github.com/pku-liang/TENET.git
-git clone https://github.com/KnowingNothing/FlexTensor-Micro.git
-git clone -b demo https://github.com/pku-liang/TensorLib.git
-```
+This will print the time as the code is running.
 
 
+## Utility Functions
 
-### Configure & Compile
+We provide some helper utility functions in the `common/utils.hpp` file.
 
-#### Hasco
+## Verifying the Results
 
-```bash
-cd ./ HASCO
-bash ./install.sh
+Each lab contains the code to compute the golden (true) solution of the lab. We use [Catch2](https://github.com/catchorg/Catch2) to perform tests to verify the results are accurate within the error tollerance. You can read the [Catch2 tutorial](https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top) if you are interested in how this works.
 
-# Settings
-vim ~/.bashrc
-# append:
-# export TVM_HOME=<install_dir>/HASCO/src/tvm
-# export AX_HOME=<install_dir>/HASCO/src/Ax
-# export PYTHONPATH=$TVM_HOME/python:$AX_HOME:${PYTHONPATH}
-source ~/.bashrc
+Subsets of the test cases can be run by executing a subset of the tests. We recomend running the first lab with `-h` option to understand what you can perform, but the rough idea is if you want to run a specific section (say `[inputSize:1024]`) then you pass `-c "[inputSize:1024]"` to the lab.
 
+
+_NOTE:_ The labs are configured to abort on the first error (using the `-a` option in the `rai_build.yml` file). You may need to change this to show the full list of errors.
+
+## Checking Errors
+
+To check and throw CUDA errors, use the THROW_IF_ERROR function. This throws an error when a CUDA error is detected which you can catch if you need special handling of the error.
+
+```{.cpp}
+THROW_IF_ERROR(cudaMalloc((void **)&deviceW, wByteCount));
 ```
 
 
+## Profiling
 
-#### TENET
+Profiling can be performed using `nvprof`. 
 
-```bash
-cd ./TENET
-bash ./init.sh
-vim ~/.bashrc
-# append:
-# export LD_LIBRARY_PATH=<install_dir>/TENET/external/lib:$LD_LIBRARY_PATH
-source ~/.bashrc
-
-cd TENET
-make cli
-make hasco
+```shell
+nvprof --cpu-profiling on --export-profile timeline.nvprof --
+      ./mybinary -i input1,input2 -o output
+nvprof --cpu-profiling on --export-profile analysis.nvprof --analysis-metrics --
+      ./mybinary -i input1,input2 -o output
 ```
 
+You could change the input and test datasets. This will output two files `timeline.nvprof` and `analysis.nvprof` which can be viewed using the `nvvp` tool (by performing a `file>import`). You will have to install the nvvp viewer on your machine to view these files.
 
+_NOTE:_ `nvvp` will only show performance metrics for GPU invocations, so it may not show any analysis when you only have serial code.
 
+You will need to install the nvprof viewer for the CUDA website and the nvprof GUI can be run without CUDA on your machine.
 
+## Offline Development
 
-### Dockerfile
+You can use the docker image and or install CMake within a CUDA envrionment. Then run `cmake [lab]` and then `make`. We do not recommend using your own machine, and we will not be debugging your machine/installation setup.
 
-The size of the docker is about 7G. If you find it difficult to pull it due to its size, you can run the following Dockerfile to build the docker by yourself.
+## License
 
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM ubuntu:20.04
-
-ENV DEBIAN_FRONTEND=noninterative
-
-RUN apt-get update \
-    && apt-get -y -q install git sudo vim python3 python3-pip llvm-9 cmake build-essential make autoconf automake scons libboost-all-dev libgmp10-dev libtool curl default-jdk csvtool \
-    && pip3 install tensorflow decorator attrs tornado psutil xgboost cloudpickle tqdm IPython botorch jinja2 pandas scipy scikit-learn plotly \
-    && echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list \
-    && echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list \
-    && curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add \
-    && sudo apt-get update \
-    && sudo apt-get -y -q install sbt \
-    && mkdir AHS \
-    && cd AHS \
-    && git clone --recursive -b micro_tutorial https://github.com/pku-liang/HASCO.git \
-    && git clone --recursive -b micro_tutorial https://github.com/pku-liang/TENET.git \
-    && git clone -b demo https://github.com/pku-liang/TensorLib.git \
-    && git clone https://github.com/KnowingNothing/FlexTensor-Micro.git \
-    && cd HASCO \
-    && bash ./install.sh \
-    && cd ../TENET \
-    && bash ./init.sh
-```
-
-
-
-## Run
-
-### HASCO
-
-Config
-
-`vim src/codesign/config.py`
-
-```python
-mastro_home = "<install_dir>/HASCO/src/maestro"
-tenet_path = "<install_dir>/TENET/bin/HASCO_Interface"
-
-tenet_params = {
-	"avg_latency":16 # average latency for each computation
-    "f_trans":12 # energy consume for each element transfered
-    "f_work":16 # energy consume for each element in the workload
-}
-
-tensorlib_home = "<install_dir>/TensorLib"
-tensorlib_main = "tensorlib.ParseJson"
-```
-
-Python API
-
-```bash
-python3 testbench/co_mobile_conv.py
-python3 testbench/co_resnet_gemm.py
-...
-```
-
-CLI
-
-```bash
-cd HASCO
-./hasco.py -h
-# Run a GEMM intrinsic with MobileNetV2 benchmark
-./hasco.py -i GEMM -b MobileNetv2 -f gemm_example.json -l 1000 -p 20 -a 0
-```
-
-Results:
-
-+ `rst/MobileNetV2_CONV.csv`  config of best design for each constraint, view with `column -s, -t < MobileNetV2_CONV.csv`
-+ `rst/software/MobileNetV2_CONV_*` tvm IR for each design
-+ `rst/hardware/CONV_*.json` TensorLib config for each design
-+ `rst/hardware/CONV_*.v` TensorLib generated Verilog
-
-### TENET
-
-```bash
-cd TENET
-
-# Help Text
-./bin/tenet -h
-
-# Run a KC-systolic dataflow
-./bin/tenet -p ./dataflow_example/pe_array.p -s ./dataflow_example/conv.s -m ./dataflow_example/KC_systolic_dataflow.m -o output.csv --all
-
-# Run a OxOy dataflow
-./bin/tenet -p ./dataflow_example/pe_array.p -s ./dataflow_example/conv.s -m ./dataflow_example/OxOy_dataflow.m -o output.csv --all
-
-# Run all layers in MobileNet
-./bin/tenet -e ./network_example/MobileNet/config -d ./network_example -o output.csv --all
-```
-
-Result:`output.csv`
-
-
-
-### For TensorLib
-
-```bash
-cd TensorLib
-
-# Optional, download the requirements from MAVEN, so that the rest instructions runs faster
-sbt compile
-
-# Examples of Scala APIs
-sbt "runMain tensorlib.Example_GenConv2D"
-
-sbt "runMain tensorlib.Example_GenGEMM"
-
-# Examples of JSON interface
-sbt "runMain tensorlib.ParseJson ./examples/conv2d.json ./output/conv2d.v"
-
-sbt "runMain tensorlib.ParseJson ./examples/gemm.json ./output/gemm.v"
-
-# Testing the result
-sbt "runMain tensorlib.Test_Runner_Gemm"
-```
-
-Result:
-
-Scala Interface: `PEArray.v`
-
-ParseJson: the second argument you specified.
-
-
-### FlexTensor
-```bash
-cd FlexTensor-Micro
-export PYTHONPATH=$PYTHONPATH:/path/to/FlexTensor-Micro
-cd FlexTensor-Micro/flextensor/tutorial
-
-# First, CPU experiments
-cd conv2d_llvm
-
-# run flextensor
-python optimize_conv2d.py --shapes res --target llvm --parallel 8 --timeout 20 --log resnet_config.log
-
-# run test
-python optimize_conv2d.py --test resnet_optimize_log.txt
-
-# run baseline
-python conv2d_baseline.py --type tvm_generic --shapes res --number 100
-
-# run plot
-python plot.py
-
-# Next, GPU experiments
-cd ../conv2d_cuda
-
-# run flextensor
-python optimize_conv2d.py --shapes res --target cuda --parallel 4 --timeout 20 --log resnet_config.log
-
-# run test
-python optimize_conv2d.py --test resnet_optimize_log.txt
-
-# run baseline
-python conv2d_baseline.py --type pytorch --shapes res --number 100
-
-# run plot
-python plot.py
-
-# At last, VNNI experiments
-cd ../gemm_vnni
-
-# run flextensor (cascadelake)
-python optimize_gemm.py --target "llvm -mcpu=cascadelake" --target_host "llvm -mcpu=cascadelake" --parallel 8 --timeout 20 --log gemm_config.log --dtype int32
-
-# run flextensor (skylake)
-python optimize_gemm.py --target "llvm -mcpu=skylake-avx512" --target_host "llvm -mcpu=skylake-avx512" --parallel 8 --timeout 20 --log gemm_config.log
-
-# run test
-python optimize_gemm.py --test gemm_optimize_log.txt
-
-# run baseline
-python gemm_baseline.py --type numpy --number 100
-
-# run plot
-python plot.py
-```
+NCSA/UIUC © Abdul Dakkak

@@ -17,7 +17,7 @@ import sys
 
 # -- Project information -----------------------------------------------------
 
-project = 'AHS'
+project = 'PKUSC'
 copyright = '2020, BSD-3-Clause License'
 author = 'Massimo DiPierro'
 
