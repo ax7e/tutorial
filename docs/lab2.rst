@@ -1,4 +1,4 @@
-Lab2-Seam carving
+Lab2-Seam carving(MPI)
 ============
 
 Seam carving是一种调整图像大小的方法, 它改变了图像的大小，但保留了  

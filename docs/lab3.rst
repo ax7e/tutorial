@@ -1,6 +1,11 @@
 Lab-3 CUDA Programming
 ======================
 
+This lab is taken from UIUC ECE 508. 
+
+You can access the course notes and powerpoints here. 
+-  `ECE 508 <http://lumetta.web.engr.illinois.edu/508/>`__
+
 This page contains information about how to access and submit the labs.
 
 -  `Install and Setup <#install-and-setup>`__
