@@ -41,9 +41,11 @@ export REPO_NAME="${GITHUB_REPOSITORY##*/}"
   
 # first, cleanup any old builds' static assets
 make -C docs clean
-  
+
+# get rid of all these safe dir warnings
+git config --global --add safe.directory '*'
+
 # get a list of branches, excluding 'HEAD' and 'gh-pages'
-git config --global --add safe.directory /__w/tutorial/tutorial
 versions="`git for-each-ref '--format=%(refname:lstrip=-1)' refs/remotes/origin/ | grep -viE '^(HEAD|gh-pages)$'`"
 for current_version in ${versions}; do
   
